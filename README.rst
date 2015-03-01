@@ -472,6 +472,11 @@ Choose from the list of available fixers:
                 param. Warning! This could change code
                 behavior.
 
+* **trim_array_spaces** [contrib]
+                Single line arrays should be formatted
+                like function/method arguments,
+                without leading or trailing space.
+
 
 The ``--config`` option customizes the files to analyse, based
 on some well-known directory structures:
