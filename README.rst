@@ -405,6 +405,11 @@ Choose from the list of available fixers:
                 Standardize spaces around ternary
                 operator.
 
+* **trim_array_spaces** [symfony]
+                Single line arrays should be formatted
+                like function/method arguments,
+                without leading or trailing space.
+
 * **unused_use** [symfony]
                 Unused use statements must be removed.
 
@@ -471,11 +476,6 @@ Choose from the list of available fixers:
                 Functions should be used with $strict
                 param. Warning! This could change code
                 behavior.
-
-* **trim_array_spaces** [contrib]
-                Single line arrays should be formatted
-                like function/method arguments,
-                without leading or trailing space.
 
 
 The ``--config`` option customizes the files to analyse, based
