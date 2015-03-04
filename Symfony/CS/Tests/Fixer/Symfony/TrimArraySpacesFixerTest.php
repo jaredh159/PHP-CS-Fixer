@@ -198,6 +198,12 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
                 "<?php someFunc([ /* empty array */ ]);",
             ),
 
+            // don't fix array syntax within comments
+            array(
+                "<?php someFunc([/* array( 'foo', 'bar', [ 'foo' ] ) */]);",
+                "<?php someFunc([ /* array( 'foo', 'bar', [ 'foo' ] ) */ ]);",
+            ),
+
             array(
                 '<?php $foo = array($bar[  4 ]);',
                 '<?php $foo = array( $bar[  4 ] );',
@@ -206,6 +212,83 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
             array(
                 '<?php $foo = [$bar[  4 ]];',
                 '<?php $foo = [ $bar[  4 ] ];',
+            ),
+
+            array(
+                '<?php // array( "foo", "bar" );',
+            ),
+
+            array(
+                "<?php \$foo = array(\$x ? 1 : 2);",
+                "<?php \$foo = array( \$x ? 1 : 2 );",
+            ),
+
+            // multiple single line nested arrays on one line
+            array(
+                "<?php \$foo = array('foo', 'bar', [1, 2, array(3)]); \$baz = ['hash', 1, array('test')];",
+                "<?php \$foo = array( 'foo', 'bar', [ 1, 2, array( 3 )] ); \$baz = [ 'hash', 1, array( 'test') ];",
+            ),
+
+            // leave multi-line arrays alone
+            array(
+                "<?php \$foo = [ \n'bar'\n ]",
+            ),
+
+            // dont fix array syntax within string
+            array(
+                '<?php $foo = [\'$bar = array( "foo" );\', array(1, 5)];',
+                '<?php $foo = [ \'$bar = array( "foo" );\', array(1, 5 ) ];',
+            ),
+
+            // crazy nested garbage pile #1
+            array(
+                "<?php \$foo = array(/* comment \$bar = array([ ], array( 'foo' ) ) */, function(\$a = array('foo'), \$b = [/* comment [] */]) {}, array('foo' => 'bar', 'baz' => \$x[  4], 'hash' => array(1,2,3)));",
+                "<?php \$foo = array( /* comment \$bar = array([ ], array( 'foo' ) ) */, function(\$a = array( 'foo' ), \$b = [ /* comment [] */ ]) {}, array( 'foo' => 'bar', 'baz' => \$x[  4], 'hash' => array(1,2,3 )) );",
+            ),
+
+            // crazy nested garbage pile #2
+            array(
+                '<?php $a = [array("foo", "bar ", [1, 4, function($x = ["foobar", 2]) {}, [/* array( 1) */]]), array("foo", [$y[ 3]()], \'bar\')];',
+                '<?php $a = [ array("foo", "bar ", [ 1, 4, function($x = [ "foobar", 2 ]) {}, [/* array( 1) */] ] ), array("foo", [ $y[ 3]() ], \'bar\') ];',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideExamples55
+     * @requires PHP 5.5
+     */
+    public function testFix55($expected, $input = null)
+    {
+        $this->makeTest($expected, $input);
+    }
+
+    public function provideExamples55()
+    {
+        return array(
+            array(
+                '<?php
+function a()
+{
+    yield array("a" => 1, "b" => 2);
+}',
+                '<?php
+function a()
+{
+    yield array( "a" => 1, "b" => 2 );
+}',
+            ),
+            array(
+                '<?php
+function a()
+{
+    yield ["a" => 1, "b" => 2];
+}',
+                '<?php
+function a()
+{
+    yield [ "a" => 1, "b" => 2 ];
+}',
             ),
         );
     }
