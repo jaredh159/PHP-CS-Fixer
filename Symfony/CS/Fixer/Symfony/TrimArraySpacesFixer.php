@@ -22,14 +22,6 @@ class TrimArraySpacesFixer extends AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDescription()
-    {
-        return 'Single line arrays should be formatted like function/method arguments, without leading or trailing space.';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function fix(\SplFileInfo $file, $content)
     {
         $tokens = Tokens::fromCode($content);
@@ -41,6 +33,14 @@ class TrimArraySpacesFixer extends AbstractFixer
         }
 
         return $tokens->generateCode();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDescription()
+    {
+        return 'Single line arrays should be formatted like function/method arguments, without leading or trailing space.';
     }
 
     /**
