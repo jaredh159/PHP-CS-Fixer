@@ -28,7 +28,7 @@ class TrimArraySpacesFixer extends AbstractFixer
 
         for ($index = 0, $c = $tokens->count(); $index < $c; ++$index) {
             if ($tokens->isArray($index)) {
-                $this->fixArray($tokens, $index);
+                self::fixArray($tokens, $index);
             }
         }
 
@@ -49,7 +49,7 @@ class TrimArraySpacesFixer extends AbstractFixer
      * @param Tokens $tokens
      * @param int    $index
      */
-    private function fixArray(Tokens $tokens, $index)
+    private static function fixArray(Tokens $tokens, $index)
     {
         if ($tokens->isArrayMultiLine($index)) {
             return;
@@ -64,12 +64,16 @@ class TrimArraySpacesFixer extends AbstractFixer
             $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_SQUARE_BRACE, $startIndex);
         }
 
-        if ($tokens[$startIndex + 1]->isWhitespace()) {
-            $tokens[$startIndex + 1]->clear();
+        $tokenAfterOpenArray = $tokens[$startIndex + 1];
+
+        if ($tokenAfterOpenArray->isWhitespace()) {
+            $tokenAfterOpenArray->clear();
         }
 
-        if ($tokens[$endIndex - 1]->isWhitespace()) {
-            $tokens[$endIndex - 1]->clear();
+        $tokenBeforeCloseArray = $tokens[$endIndex - 1];
+
+        if ($tokenBeforeCloseArray->isWhitespace()) {
+            $tokenBeforeCloseArray->clear();
         }
     }
 }
