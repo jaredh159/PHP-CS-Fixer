@@ -131,6 +131,26 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
             ),
 
             array(
+                "<?php \$foo = [function( \$a =    \tarray('foo')  )  { return       'foo'   ;}];",
+                "<?php \$foo = [ function( \$a =    \tarray( 'foo' )  )  { return       'foo'   ;} ];",
+            ),
+
+            array(
+                "<?php \$foo = array(function(  )  {\treturn     'foo'    \t;\t});",
+                "<?php \$foo = array( function(  )  {\treturn     'foo'    \t;\t} );",
+            ),
+
+            array(
+                "<?php \$foo = [function()\t{\t  \treturn 'foo';\t}];",
+                "<?php \$foo = [ function()\t{\t  \treturn 'foo';\t} ];",
+            ),
+
+            array(
+                "<?php \$foo \t   = array(function(\$a,\$b,\$c=array(3, 4))\t{\t  \treturn 'foo';\t});",
+                "<?php \$foo \t   = array( function(\$a,\$b,\$c=array( 3, 4 ))\t{\t  \treturn 'foo';\t} );",
+            ),
+
+            array(
                 "<?php \$foo = array(\$bar->method(), Foo::doSomething());",
                 "<?php \$foo = array( \$bar->method(), Foo::doSomething() );",
             ),
@@ -138,6 +158,16 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
             array(
                 "<?php \$foo = [\$bar->method(), Foo::doSomething()];",
                 "<?php \$foo = [ \$bar->method(), Foo::doSomething() ];",
+            ),
+
+            array(
+                "<?php \$foo = [\$bar->method( \$a,\$b,    \$c,\t\t \$d  ), Foo::doSomething()];",
+                "<?php \$foo = [ \$bar->method( \$a,\$b,    \$c,\t\t \$d  ), Foo::doSomething() ];",
+            ),
+
+            array(
+                "<?php \$foo   =\t array(\$bar->method( \$a,\$b,    \$c,\t\t \$d  ), \$bar -> doSomething(  ['baz']));",
+                "<?php \$foo   =\t array( \$bar->method( \$a,\$b,    \$c,\t\t \$d  ), \$bar -> doSomething(  [ 'baz']) );",
             ),
 
             array(
