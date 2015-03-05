@@ -90,7 +90,6 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
                 "<?php \$foo = [ \t \t 'foo', 'bar'\t \t ];",
             ),
 
-
             array(
                 "<?php \$foo = array('foo', 'bar'); \$bar = array('foo', 'bar');",
                 "<?php \$foo = array( 'foo', 'bar' ); \$bar = array( 'foo', 'bar' );",
