@@ -56,9 +56,40 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
             ),
 
             array(
+                "<?php \$foo = array('foo', 'bar');",
+                "<?php \$foo = array(\t'foo', 'bar'\t);",
+            ),
+
+            array(
+                "<?php \$foo = array('foo', 'bar');",
+                "<?php \$foo = array(  \t 'foo', 'bar'\t   );",
+            ),
+
+            array(
+                "<?php \$foo = array('foo', 'bar');",
+                "<?php \$foo = array(    'foo', 'bar'   );",
+            ),
+
+            array(
                 "<?php \$foo = ['foo', 'bar'];",
                 "<?php \$foo = [ 'foo', 'bar' ];",
             ),
+
+            array(
+                "<?php \$foo = ['foo', 'bar'];",
+                "<?php \$foo = [     'foo', 'bar'   ];",
+            ),
+
+            array(
+                "<?php \$foo = ['foo', 'bar'];",
+                "<?php \$foo = [\t'foo', 'bar'\t];",
+            ),
+
+            array(
+                "<?php \$foo = ['foo', 'bar'];",
+                "<?php \$foo = [ \t \t 'foo', 'bar'\t \t ];",
+            ),
+
 
             array(
                 "<?php \$foo = array('foo', 'bar'); \$bar = array('foo', 'bar');",
