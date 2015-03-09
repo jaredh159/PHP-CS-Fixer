@@ -41,13 +41,13 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
             ),
 
             array(
-                "<?php \$foo = array();",
-                "<?php \$foo = array( );",
+                '<?php $foo = array();',
+                '<?php $foo = array( );',
             ),
 
             array(
-                "<?php \$foo = [];",
-                "<?php \$foo = [ ];",
+                '<?php $foo = [];',
+                '<?php $foo = [ ];',
             ),
 
             array(
