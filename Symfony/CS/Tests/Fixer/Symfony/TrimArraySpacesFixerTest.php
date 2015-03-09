@@ -55,6 +55,17 @@ class TrimArraySpacesFixerTest extends AbstractFixerTestBase
                 "<?php \$foo = array( 'foo', 'bar' );",
             ),
 
+            // with trailing comma
+            array(
+                "<?php \$foo = array('foo', 'bar',);",
+                "<?php \$foo = array( 'foo', 'bar', );",
+            ),
+
+            array(
+                "<?php \$foo = ['foo', 'bar',];",
+                "<?php \$foo = [ 'foo', 'bar', ];",
+            ),
+
             array(
                 "<?php \$foo = array('foo', 'bar');",
                 "<?php \$foo = array(\t'foo', 'bar'\t);",
