@@ -72,7 +72,10 @@ class TrimArraySpacesFixer extends AbstractFixer
 
         $tokenBeforeCloseArray = $tokens[$endIndex - 1];
 
-        if ($tokenBeforeCloseArray->isWhitespace()) {
+        if (
+            $tokenBeforeCloseArray->isWhitespace()
+            && !$tokens[$endIndex - 2]->equals(',')
+        ) {
             $tokenBeforeCloseArray->clear();
         }
     }
